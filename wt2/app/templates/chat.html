@@ -1,0 +1,357 @@
+<html>
+<head>
+        {% if title %}
+        <title>{{ title }} - Beku</title>
+        {% else %}
+        <title>Beku</title>
+        {% endif %}
+ <style>
+      body {
+        font-family: monospace;
+      }
+      h1 {
+        background-color: white;
+        display: inline-block;
+        font-size: 3em;
+        margin: 0;
+        padding: 14px;
+      }
+      h3 {
+        color: black;
+        font-size: 20px;
+        margin-top: 3px;
+        text-align: center;
+      }
+      #chatbox {
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        margin-top: 60px;
+      }
+      #userInput {
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        margin-top: 60px;
+      }
+      #textInput {
+        width: 90%;
+        border: none;
+        border-bottom: 3px solid black;
+        font-family: monospace;
+        font-size: 17px;
+      }
+      .userText {
+        color: white;
+        font-family: monospace;
+        font-size: 17px;
+        text-align: right;
+        line-height: 30px;
+      }
+      .userText span {
+        background-color: #808080;
+        padding: 10px;
+        border-radius: 2px;
+      }
+      .botText {
+        color: white;
+        font-family: monospace;
+        font-size: 17px;
+        text-align: left;
+        line-height: 30px;
+      }
+      .botText span {
+        background-color: #4169e1;
+        padding: 10px;
+        border-radius: 2px;
+      }
+      #tidbit {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 300px;
+      }
+      .boxed {
+        margin-left: auto;
+        margin-right: auto;
+        width: 78%;
+        margin-top: 60px;
+        border: 1px solid green;
+      }
+      .box {
+        border: 2px solid black;
+      }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+ <!-- Required meta tags -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/font-awesome.min.css')}}">
+
+    <!-- ElegantFonts CSS -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/elegant-fonts.css')}}">
+
+    <!-- themify-icons CSS -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/themify-icons.css')}}">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/swiper.min.css')}}">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css')}}">
+    <script>
+        
+        $("body").css({"color": "#262626", "font-size": "16px"});
+	$("#l").css({"background-color":"#ff4801","color": "#fff" });
+ 
+        $("img").css({
+            "vertical-align": "baseline"
+        });
+
+        $("a").css({ "color": "#262626" });
+
+        
+
+        $(".donate-btn a").css({ "display": "inline-block",
+    "padding": "20px",
+    "font-size": "14px",
+    "line-height": 1,
+    "color": "#fff",
+    "text-decoration": "navajowhite",
+    "background": "#262222" });
+
+        
+
+
+
+
+
+
+    </script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="top-header-bar" id="l">
+            <div class="container">
+                <div class="row flex-wrap justify-content-center justify-content-lg-between align-items-lg-center">
+                    <div class="col-12 col-lg-8 d-none d-md-flex flex-wrap justify-content-center justify-content-lg-start mb-3 mb-lg-0">
+                     
+                        <div class="header-bar-text">
+                            <h2> BEKU</h2>
+                        </div><!-- .header-bar-text -->
+                    </div><!-- .col -->
+
+                    <div class="col-12 col-lg-4 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center">
+                        <div class="donate-btn">
+                            <a href="/donate">Donate Now!</a>
+                        </div><!-- .donate-btn -->
+                    </div><!-- .col -->
+		 
+                    </div><!-- .col -->
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .top-header-bar -->
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+
+  <ul class="nav navbar-nav">
+  
+ <li class= "nav-item"><a class="nav-link"  href="/index">Home</a></li>
+ <li  class= "nav-item" ><a class="nav-link"  href="/about">About us</a></li>
+ <li  class= "nav-item"><a class="nav-link" href="/causes">Causes</a></li>
+<li class="nav-item"><a class="nav-link" href="/portfolio">Portfolio</a></li>
+<li class="nav-item"><a class="nav-link" href="/multistage">Gallery</a></li>
+</ul>
+  {% if current_user.is_anonymous%}
+
+    <!-- Dropdown -->
+<ul class="nav navbar-nav navbar-right">
+    <li class="nav-item dropdown">
+      <!--span class="glyphicon glyphicon-log-in"></span-->
+	<a class="nav-link dropdown-toggle" href="/login" id="navbardrop" data-toggle="dropdown">Login</a>
+     	 <div class="dropdown-menu">
+		<a class="dropdown-item" href="/login">User Login</a>
+        	<a class="dropdown-item" href="/login_v">Volunteer Login</a>
+        	<a class="dropdown-item" href="/login_ngo">NGO login</a>
+	</div>
+	</li>
+    <li class="nav-item dropdown">
+	<!--span class="glyphicon glyphicon-user"></span-->
+	<a class="nav-link dropdown-toggle" href="/signup" id="navbardrop" data-toggle="dropdown">Signup</a>
+	<div class="dropdown-menu">
+        <a class="dropdown-item" href="/registervol">Join our Team!</a>
+	<a class="dropdown-item" href="/register">New User?Signup!</a>
+	<a class="dropdown-item" href="/registerngo">Register Your organisation!</a></li>
+
+	</div>
+    </li>
+   
+</ul>
+{%else%}
+<ul class="nav navbar-nav navbar-right">
+<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+ <li class="nav-item"><a class="nav-link" href="/chat">Chat Support!</a></li>
+</ul>
+
+{%endif%}
+
+
+</nav>
+      
+ 
+			
+                          
+                        <div class="hamburger-menu d-lg-none">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div><!-- .hamburger-menu -->
+                    </div><!-- .col -->
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .nav-bar -->
+    </header><!-- .site-header -->
+
+
+<!--div>
+<!--a href="/index">Home</a>
+<a href="/index">Contact us</a>
+<a href="/index">Pictorials</a>
+<a href="/index">Login/signup</a>
+</div-->
+<hr>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <img />
+ 
+
+    <div class="box"></div>
+    <div class="boxed">
+      <div>
+        <div id="chatbox">
+          <img
+            src="https://user-images.githubusercontent.com/20112458/49326597-773b7280-f57a-11e8-853d-20ed61d18b0d.png"
+            alt="CANDICE"
+            style="width:40px;height:40px;"
+          />
+          <p class="botText">
+            <span>Hi! I'm  your personal ChatBot </span>
+          </p>
+        </div>
+        <div id="userInput">
+          <input id="textInput" type="text" name="msg" placeholder="Message" />
+        </div>
+      </div>
+      <script>
+        function getBotResponse() {
+          var rawText = $("#textInput").val();
+          var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+          $("#textInput").val("");
+          $("#chatbox").append(userHtml);
+          document
+            .getElementById("userInput")
+            .scrollIntoView({ block: "start", behavior: "smooth" });
+          $.get("/get", { msg: rawText }).done(function(data) {
+            var botHtml = '<p class="botText"><span>' + data + "</span></p>";
+            $("#chatbox").append(botHtml);
+            document
+              .getElementById("userInput")
+              .scrollIntoView({ block: "start", behavior: "smooth" });
+          });
+        }
+        $("#textInput").keypress(function(e) {
+          if (e.which == 13) {
+            getBotResponse();
+          }
+        });
+      </script>
+<br><br><br><br>
+    </div>
+   <script type='text/javascript' src='/static/js/jquery.js'></script>
+    <script type='text/javascript' src='/static/js/jquery.collapsible.min.js'></script>
+    <script type='text/javascript' src='/static/js/swiper.min.js'></script>
+    <script type='text/javascript' src='/static/js/jquery.countdown.min.js'></script>
+    <script type='text/javascript' src='/static/js/circle-progress.min.js'></script>
+    <script type='text/javascript' src='/static/js/jquery.countTo.min.js'></script>
+    <script type='text/javascript' src='/static/js/jquery.barfiller.js'></script>
+    <script type='text/javascript' src='/static/js/custom.js'></script>
+
+
+ 
+
+    <footer class="site-footer">
+        <div class="footer-widgets">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="foot-about">
+                            <h2><a class="foot-logo" href="#"><img src="/static/images/foot-logo.png" alt=""></a></h2>
+
+                            <p></p>
+
+                            <ul class="d-flex flex-wrap align-items-center">
+                                <li><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div><!-- .foot-about -->
+                    </div><!-- .col -->
+
+                    <div class="col-15 col-md-9 col-lg-3 mt-5 mt-md-0">
+                        <h2>Useful Links</h2>
+
+                        <ul>
+                            
+                            <li><a href="/login_v">Become a Volunteer</a></li>
+                            <li><a href="/donate">Donate</a></li>
+                            <li><a href="/about">Testimonials</a></li>
+                            <li><a href="/causes">Causes</a></li>
+                            <li><a href="/portfolio">Portfolio</a></li>
+                            
+                        </ul>
+                    </div><!-- .col -->
+
+                    <div class="col-12 col-md-6 col-lg-3 mt-5 mt-md-0">
+                        
+                    </div><!-- .col -->
+
+                    <div class="col-12 col-md-6 col-lg-3 mt-5 mt-md-0">
+                        
+                        
+                    </div><!-- .col -->
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .footer-widgets -->
+
+        <div class="footer-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+
+                    </div><!-- .col-12 -->
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .footer-bar -->
+    </footer><!-- .site-footer -->
+</body>
+</html>
