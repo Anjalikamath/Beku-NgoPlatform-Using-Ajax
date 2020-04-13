@@ -12,6 +12,7 @@ The functionalities implemented are as follows:
 
 4.Any user can choose to collaborate with/help ngos by starting their own fund raisers,missions etc.
 
+5.A user can use the chatbot functionality to get more information on the website.The user can use this chatbot without logging in.
 
 Ajax patterns such as Multistage-downloads,RESTful apis have been implemented.
 
