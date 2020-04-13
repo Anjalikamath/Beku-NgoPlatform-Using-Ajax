@@ -1,0 +1,155 @@
+
+{% extends "base.html" %}
+
+{%block content%}
+
+<title>Gallery</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" >
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}">
+<script>
+		function init(){
+		
+		xhr = new XMLHttpRequest();	
+			if(xhr)
+			{
+				xhr.onreadystatechange = getContent;
+				xhr.open("GET", "{{url_for('static',filename='content.txt')}}", true);
+				xhr.send(null);
+			}	
+		}
+		function getContent(){
+		
+		if(xhr.readyState=="4"&&xhr.status==200){
+				var arr=(xhr.responseText).split(";");
+				document.getElementById("secondary").innerHTML=arr[0];
+				//document.getElementById("logo").innerHTML=arr[3];
+				
+//				alert(arr[3]);
+				document.getElementById("picture").innerHTML=arr[3]; 
+				
+				setTimeout(getPic2, 4000);
+				setTimeout(getPic3, 8000);
+				setTimeout(getPic4, 12000);
+				setTimeout(getPic2, 16000);
+				setTimeout(getPic3, 20000);
+				setTimeout(getPic4, 24000);
+				setTimeout(getPic2, 28000);
+				setTimeout(getPic3, 32000);
+				setTimeout(getPic4, 3600);
+				setTimeout(getPic2, 40000);
+				setTimeout(getPic3, 44000);
+				setTimeout(getPic4, 48000);
+
+		  }
+		
+		
+		}
+		function getPic(){
+		
+			xhr.open("GET","{{url_for('static',filename='image.txt')}}", true);
+			xhr.onreadystatechange = showImg;
+			xhr.send(null);
+		
+		
+		}
+		function showImg()
+		{
+			if(xhr.readyState == 4 && xhr.status == 200)
+			{	
+				document.getElementById("picture").innerHTML = xhr.responseText;	
+			}
+			//setTimeout(getPic2,2000);
+			//xhr.abort();
+			//xhr=new XMLHttpRequest();
+			//setTimeout(getPic2,2000);
+			
+		}
+		function getPic2(){
+		
+			xhr.open("GET", "{{url_for('static',filename='image2.txt')}}", true);
+			xhr.onreadystatechange = showImg2;
+			xhr.send(null);
+		
+		
+		}
+		function showImg2()
+		{
+			if(xhr.readyState == 4 && xhr.status == 200)
+			{	//alert(xhr.resposeText);
+				document.getElementById("picture").innerHTML = xhr.responseText;	
+			}
+			//setTimeout(getPic3,4000);
+			
+		}
+		function getPic3(){
+		
+			xhr.open("GET", "{{url_for('static',filename='image3.txt')}}", true);
+			xhr.onreadystatechange = showImg3;
+			xhr.send(null);
+		
+		
+		}
+		function showImg3()
+		{
+			if(xhr.readyState == 4 && xhr.status == 200)
+			{	//alert(xhr.responseText);
+				document.getElementById("picture").innerHTML = xhr.responseText;	
+			}
+			//setTimeout(getPic4,4000);
+			
+		}
+		function getPic4(){
+		
+			xhr.open("GET", "{{url_for('static',filename='image4.txt')}}", true);
+			xhr.onreadystatechange = showImg4;
+			xhr.send(null);
+		
+		
+		}
+		function showImg4()
+		{
+			if(xhr.readyState == 4 && xhr.status == 200)
+			{	//alert(xhr.responseText);
+				
+				document.getElementById("picture").innerHTML = xhr.responseText;	
+			}
+			
+			
+		}
+		
+
+</script>
+</head >
+<body onload="init()">
+<div id="doc" class="yui-t7">
+  <div id="hd">
+    <div id="header"><h1>GALLERY</h1><div id="logo"></div></div>
+  </div>
+  <div id="bd">
+    <div id="yui-main">
+      <div class="yui-b">
+        <div class="yui-gb">
+          <div class="yui-u first">
+		  <div class="content" id="picture">Picture</div>
+            
+          </div>
+
+          
+          
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    
+    
+
+    <div class="yui-b" style="margin-top: 30%">
+
+      <div id="secondary">Text Content</div>
+    </div>
+  </div>
+  
+</div>
+
+{%endblock%}
